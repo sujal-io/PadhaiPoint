@@ -6,6 +6,7 @@ import cors from 'cors';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import errorHandler from './middlewares/errorHandler.middleware.js';
+import connectDB from './config/db.js';
 
 // ES6 module__dirname alternative
 const __filename = fileURLToPath(import.meta.url);
@@ -15,6 +16,7 @@ const __dirname = path.dirname(__filename);
 const app = express();
 
 //Connect to mongoDB
+connectDB();
 
 app.use(cors({
     origin: "*",
