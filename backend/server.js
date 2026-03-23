@@ -10,6 +10,7 @@ import connectDB from './config/db.js';
 
 import authRoutes from './routes/auth.route.js';
 
+
 // ES6 module__dirname alternative
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -31,19 +32,18 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Serve static files from the uploads directory
-app.use(/uploads/, express.static(path.join(__dirname, 'uploads')));
+app.use('/uploads/', express.static(path.join(__dirname, 'uploads')));
 
 //Routes
 
 app.use('/api/auth', authRoutes);
 
-app.use(errorHandler);
-
-
 // 404 handler for undefined routes
 app.use((req, res)=>{
     res.status(404).json({ message: 'Route not found' });
 });
+
+app.use(errorHandler);
 
 
 // Start the server
