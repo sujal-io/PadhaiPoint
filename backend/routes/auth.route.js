@@ -40,6 +40,7 @@ const loginValidation = [
   .withMessage('Password is required'),
 ];
 
+
 //Public routes
 router.post('/register', registerValidation, register);
 router.post('/login', loginValidation, login);
