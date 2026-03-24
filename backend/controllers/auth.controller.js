@@ -124,6 +124,20 @@ export const login = async (req, res, next) => {
 
 export const getprofile = async (req, res, next) => {
   try {
+    const user = await User.findById(req.user.id);
+
+    res.status(200).json({
+        success: true,
+        data: {
+            id: user._id,
+            username: user.username,
+            email: user.email,
+            profileImage: user.profileImage,
+            createdAt: user.createdAt,
+            updatedAt: user.updatedAt
+        },
+        message: "User profile fetched successfully",
+    });
   } catch (error) {
     next(error);
   }
@@ -135,6 +149,27 @@ export const getprofile = async (req, res, next) => {
 
 export const updateProfile = async (req, res, next) => {
   try {
+    const { username, email, profileImage } = req.body;
+
+    const user= await User.findById(req.user.id);
+
+    if(username) user.username = username;
+    if(email) user.email = email;
+    if(profileImage) user.profileImage = profileImage;
+
+    await user.save(); 
+
+    res.status(200).json({
+        success: true,
+        data: {
+            id: user._id,
+            username: user.username,
+            email: user.email,
+            profileImage: user.profileImage,
+        }, 
+        message: "User profile updated successfully",
+    });
+
   } catch (error) {
     next(error);
   }
