@@ -6,6 +6,7 @@ import{
     getprofile,
     updateProfile,
     changePassword,
+    logout,
 } from '../controllers/auth.controller.js';
 import protect from '../middlewares/auth.middleware.js';
 
@@ -46,6 +47,7 @@ router.post('/register', registerValidation, register);
 router.post('/login', loginValidation, login);
 
 //Protected routes
+router.post('/logout', protect, logout);
 router.get('/profile', protect, getprofile);
 router.put('/profile', protect, updateProfile);
 router.put('/change-password', protect, changePassword);
